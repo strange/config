@@ -1,0 +1,76 @@
+# https://github.com/polybar/polybar/wiki/Module:-memory
+[colors]
+background = #161821
+foreground = #dadce3
+foreground-dimmed = #6c7187
+alert = #d57d7b
+active = #dadce3
+semi-active = #89a0c2
+
+[bar/mybar]
+wm-restack = bspwm
+lineheight = 0
+padding-right = 2
+padding-left = 1
+module-margin = 2
+height = 26
+font-0 = Iosevka Custom:weight=medium:pixelsize=11;3
+font-1 = Iosevka Custom:weight=medium:pixelsize=11;3
+font-2 = Iosevka Custom:weight=medium:pixelsize=11;3
+modules-left = bspwm
+modules-right = pulseaudio wireless-network cpu memory battery1 battery2 date
+line-size = 1
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+[module/cpu]
+type = internal/cpu
+label = CPU %percentage%%
+
+[module/wireless-network]
+type = internal/network
+interface = wlp4s0
+label-connected = %essid% %signal%%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+format-muted = Muted
+label-volume = VOL %percentage%%
+
+[module/battery1]
+type = internal/battery
+battery = BAT0
+adapter = AC
+label-charging = Charging %percentage%%
+label-discharging = Discharging %percentage%%
+label-full = Fully charged
+
+[module/battery2]
+type = internal/battery
+battery = BAT1
+adapter = AC
+label-charging = Charging %percentage%%
+label-discharging = Discharging %percentage%%
+label-full = Fully charged
+
+[module/memory]
+type = internal/memory
+label = MEM %percentage_used%%
+interval = 3
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = false
+enable-click = true
+enable-scroll = false
+
+label-focused-background = ${colors.background}
+label-focused-foreground = ${colors.active}
+label-dimmed-foreground = ${colors.foreground-dimmed}
+label-empty-foreground = ${colors.foreground-dimmed}
+label-urgent-background = ${colors.alert}
+label-occupied-foreground = ${colors.semi-active}
+
+[module/date]
+type = internal/date
+date = %a %b %d %H:%M
