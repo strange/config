@@ -1,0 +1,35 @@
+version: 2
+
+log-file: /tmp/efm.log
+log-level: 1
+
+root-markers:
+  - .git/
+
+tools:
+  javascript-eslint_d: &javascript-eslint_d
+    lint-command: 'eslint_d -f unix --stdin --stdin-filename ${INPUT}'
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %m"
+  python-flake8: &python-flake8
+    lint-command: 'flake8 --stdin-display-name ${INPUT} -'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m'
+  yaml-yamllint: &yaml-yamllint
+    lint-command: 'yamllint -f parsable -'
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %m"
+
+languages:
+  javascript:
+    - <<: *javascript-eslint_d
+  javascriptreact:
+    - <<: *javascript-eslint_d
+  python:
+    - <<: *python-flake8
+  yaml:
+    - <<: *yaml-yamllint

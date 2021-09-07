@@ -1,15 +1,15 @@
-*
+/*
 !.gitignore
 
 !README.md
 
 !/kitty
+/kitty/sessions
 
 !/sxhkd
 
 !/nvim
-!/nvim/lua
-!/nvim/after
+/nvim/plugin
 
 !/polybar
 
