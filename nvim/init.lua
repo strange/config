@@ -2,7 +2,7 @@ vim.cmd [[packadd packer.nvim]]
 
 require('settings')
 require('maps')
-require('filetypes')
+require('au')
 
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
@@ -70,6 +70,6 @@ require('packer').startup(function()
   end}
 
   -- Visual
-  use { 'norcalli/nvim-colorizer.lua', config = "require('plugins.colorizer')" }
+  -- use { 'norcalli/nvim-colorizer.lua', config = "require('plugins.colorizer')" }
   use { 'arcticicestudio/nord-vim', config = "require('plugins.nord')" }
 end)

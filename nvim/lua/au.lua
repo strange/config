@@ -3,6 +3,10 @@ vim.cmd [[
 ]]
 
 vim.cmd [[
+  autocmd BufEnter * :syntax sync maxlines=600
+]]
+
+vim.cmd [[
   autocmd FileType text,markdown,xml,html,xhtml,erlang setlocal sw=4 ts=4
 ]]
 
