@@ -14,6 +14,7 @@ vim.o.fillchars = "stl:-,vert:|,fold:-,diff:-"
 vim.o.scrolloff = 1
 vim.o.lazyredraw = true
 vim.o.sidescroll = 0
+vim.o.foldenable = false
 
 -- Gutter
 
