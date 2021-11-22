@@ -1,6 +1,6 @@
 vim.cmd [[packadd packer.nvim]]
 
-require('settings')
+require('options')
 require('maps')
 require('au')
 
