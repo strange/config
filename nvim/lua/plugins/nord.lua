@@ -6,14 +6,19 @@ vim.g.nord_italic_comments = 1
 vim.g.nord_underline = 1
 
 vim.cmd([[colorscheme nord]])
+
 vim.cmd([[hi Normal guibg=#171c23]])
--- vim.cmd([[hi Constant guifg=#a093c7]])
+vim.cmd([[hi Normal guibg=#171c23 guifg=#e4e9ec]])
+vim.cmd([[hi Identifier guifg=#e4e9ec]])
+vim.cmd([[hi Pmenu guibg=#28303c guifg=#e4e9ec]])
 vim.cmd([[hi Include guifg=#a093c7]])
-vim.cmd([[hi Title guifg=#e2a478]])
 vim.cmd([[hi Title guifg=#d9a67e]])
-vim.cmd([[hi String guifg=#91be9b]])
-vim.cmd([[hi CursorLineNr guifg=#81a1c1]])
-vim.cmd([[hi Pmenu guibg=#28303c]])
+-- vim.cmd([[hi String guifg=#91be9b]])
+vim.cmd([[hi String guifg=#8fbcac]])
+vim.cmd([[hi CursorLineNr guifg=#ebcb8b]])
+
+vim.cmd([[hi! LspDiagnosticsDefaultError guifg=#ff9900]])
+vim.cmd([[hi! LspDiagnosticsVirtualTextError guifg=#ff9900]])
 
 vim.cmd([[hi! clear CursorLine]])
 
@@ -29,6 +34,7 @@ vim.cmd([[hi! link pythonBuiltin Include]])
 vim.cmd([[hi! link pythonBuiltinFunc Type]])
 
 vim.cmd([[hi! link erlangAtom Function]])
+vim.cmd([[hi! link erlangCommentAnnotation SpecialComment]])
 
 vim.cmd([[hi! link rustFuncName Title]])
 vim.cmd([[hi! link rustBoolean Number]])
@@ -57,6 +63,7 @@ vim.cmd([[hi! link shOption Title]])
 
 vim.cmd([[hi! link TSInclude Include]])
 vim.cmd([[hi! link TSBoolean Number]])
+vim.cmd([[hi! link TSConstant Number]])
 
--- vim.cmd([[hi! link erlangBracket Title]])
-vim.cmd([[hi! link erlangGlobalFuncCall Include]])
+vim.cmd([[hi! link LspDiagnosticsDefaultError Title]])
+vim.cmd([[hi! link LspDiagnosticsVirtualTextError Title]])

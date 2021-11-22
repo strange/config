@@ -1,11 +1,13 @@
 # https://github.com/polybar/polybar/wiki/Module:-memory
 [colors]
-background = #161821
-foreground = #dadce3
-foreground-dimmed = #6c7187
+background = #111111
+foreground = #ddddcd
+foreground-dimmed = #99998a
 alert = #d57d7b
-active = #dadce3
-semi-active = #89a0c2
+active = #f2f2e9
+# active = #8dd1d4
+semi-active = #c4c4b3
+# semi-active = #dd8dc4
 
 [bar/mybar]
 wm-restack = bspwm

@@ -12,9 +12,11 @@ require('packer').startup(function()
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-ragtag'
+  use 'tpope/vim-fugitive'
   use 'editorconfig/editorconfig-vim'
   use 'farmergreg/vim-lastplace'
   use 'gelguy/wilder.nvim'
+  use 'brooth/far.vim'
 
   -- Notes
   use { 'vimwiki/vimwiki', config = "require('plugins.vimwiki')" }
@@ -32,9 +34,13 @@ require('packer').startup(function()
   use {
     'nvim-telescope/telescope.nvim',
     config = "require('plugins.telescope')",
-    requires = { {'nvim-lua/plenary.nvim'} },
+    requires = { 'nvim-lua/plenary.nvim' },
   }
-  use { "AckslD/nvim-neoclip.lua", config = "require('plugins.neoclip')" }
+  use {
+    "AckslD/nvim-neoclip.lua",
+    requires = { 'tami5/sqlite.lua', module = 'sqlite' },
+    config = "require('plugins.neoclip')",
+  }
 
   -- Language support
   use 'MaxMEllon/vim-jsx-pretty'
@@ -50,12 +56,13 @@ require('packer').startup(function()
   } -- Markdown previews
 
   -- LSP and completion
+  use { 'hrsh7th/vim-vsnip', config = "require('plugins.vsnip')" }
   use { 'neovim/nvim-lspconfig', config = "require('plugins.lsp')" }
-  -- use { 'hrsh7th/nvim-compe', config = "require('plugins.compe')" }
   use {
     'hrsh7th/nvim-cmp',
     config = "require('plugins.cmp')",
     requires = {
+      { 'hrsh7th/cmp-vsnip', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
@@ -70,6 +77,24 @@ require('packer').startup(function()
   end}
 
   -- Visual
-  -- use { 'norcalli/nvim-colorizer.lua', config = "require('plugins.colorizer')" }
-  use { 'arcticicestudio/nord-vim', config = "require('plugins.nord')" }
+  use { 'rktjmp/lush.nvim' }
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = "require('plugins.blankline')",
+  }
+  use {
+    'DarwinSenior/nvim-colorizer.lua',
+    config = "require('plugins.colorizer')",
+  }
+
+  use {
+    'jnurmine/Zenburn',
+    config = "require('plugins.zenburn')",
+  }
+
+  -- use { 'sainnhe/everforest' }
+  -- vim.cmd([[color everforest]])
+  -- vim.cmd([[hi Normal guibg=#111111]])
+  -- vim.cmd([[hi EndOfBuffer guibg=#111111]])
+  -- vim.cmd([[hi StatusLine guifg=#ccdc90]])
 end)

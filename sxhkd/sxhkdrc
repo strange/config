@@ -101,7 +101,7 @@ super + {o,i}
 
 # Media keys
 XF86MonBrightness{Down,Up}
-	xbacklight {-dec 15,-inc 15}
+	xbacklight {-dec 5,-inc 5}
 
 XF86AudioMute
 	ponymix toggle

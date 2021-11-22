@@ -1,3 +1,4 @@
+---
 version: 2
 
 log-file: /tmp/efm.log
@@ -8,11 +9,14 @@ root-markers:
 
 tools:
   javascript-eslint_d: &javascript-eslint_d
-    lint-command: 'eslint_d -f unix --stdin --stdin-filename ${INPUT}'
+    lint-command: 'eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}'
     lint-ignore-exit-code: true
     lint-stdin: true
+    # lint-formats:
+    #   - "%f:%l:%c: %m"
     lint-formats:
-      - "%f:%l:%c: %m"
+      - "%f(%l,%c): %tarning %m"
+      - "%f(%l,%c): %rror %m"
   python-flake8: &python-flake8
     lint-command: 'flake8 --stdin-display-name ${INPUT} -'
     lint-stdin: true
@@ -28,6 +32,10 @@ languages:
   javascript:
     - <<: *javascript-eslint_d
   javascriptreact:
+    - <<: *javascript-eslint_d
+  typescript:
+    - <<: *javascript-eslint_d
+  typescriptreact:
     - <<: *javascript-eslint_d
   python:
     - <<: *python-flake8

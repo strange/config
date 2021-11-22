@@ -1,4 +1,21 @@
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
+
+configs.zk = {
+  default_config = {
+    cmd = {'zk', 'lsp'},
+    filetypes = {'markdown'},
+    -- root_dir = lspconfig.util.root_pattern('.zk'),
+    root_dir = function()
+      return vim.loop.cwd()
+    end,
+    settings = {}
+  };
+}
+
+-- lspconfig.zk.setup({ on_attach = function(client, buffer) 
+--   -- Add keybindings here, see https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
+-- end })
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -14,6 +31,7 @@ local on_attach = function(client, bufnr)
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<cr>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -32,27 +50,27 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    underline = true,
-    update_in_insert = false,
-  }
-)
-
 lspconfig.efm.setup {
   init_options = {
     documentFormatting = true,
   },
+  on_attach = on_attach,
   filetypes = {
     'javascript',
     'javascriptreact',
+    'typescriptreact',
+    'typescript',
     'yaml',
     'python',
   },
 }
 
-local servers = { 'pyright', 'rust_analyzer', 'tsserver' }
+local servers = {
+  'pyright',
+  'rust_analyzer',
+  'tsserver',
+  'zk',
+}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -63,3 +81,11 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    underline = true,
+    update_in_insert = false,
+  }
+)
