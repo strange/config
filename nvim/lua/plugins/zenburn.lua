@@ -1,6 +1,8 @@
 vim.g.zenburn_high_Contrast = 1
 vim.g.zenburn_alternate_Visual = 1
+
 vim.cmd([[colorscheme zenburn]])
+
 vim.cmd([[hi Normal guibg=#111111]])
 vim.cmd([[hi Underlined guifg=#8cb0d3]])
 vim.cmd([[hi Title guifg=#ffcfaf]])

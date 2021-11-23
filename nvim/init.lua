@@ -89,12 +89,11 @@ require('packer').startup(function()
 
   use {
     'jnurmine/Zenburn',
-    config = "require('plugins.zenburn')",
+    -- config = "require('plugins.zenburn')",
   }
 
-  -- use { 'sainnhe/everforest' }
-  -- vim.cmd([[color everforest]])
-  -- vim.cmd([[hi Normal guibg=#111111]])
-  -- vim.cmd([[hi EndOfBuffer guibg=#111111]])
-  -- vim.cmd([[hi StatusLine guifg=#ccdc90]])
+  use {
+    'sainnhe/everforest',
+    config = "require('plugins.everforest')",
+  }
 end)
