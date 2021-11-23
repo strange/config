@@ -89,11 +89,11 @@ require('packer').startup(function()
 
   use {
     'jnurmine/Zenburn',
-    -- config = "require('plugins.zenburn')",
+    config = "require('plugins.zenburn')",
   }
 
   use {
     'sainnhe/everforest',
-    config = "require('plugins.everforest')",
+    -- config = "require('plugins.everforest')",
   }
 end)
