@@ -3,12 +3,12 @@
 ### Vim
 
 * neovim
-* efm-langserver
-* eslint_d
+* vscode-langservers-extracted
+* typescript-language-server
+* yaml-language-server
 * yamllint
 * typescript
 * pyright
-* typescript-language-server
 
 ### WM
 

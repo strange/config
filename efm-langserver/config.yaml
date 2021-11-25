@@ -12,8 +12,6 @@ tools:
     lint-command: 'eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}'
     lint-ignore-exit-code: true
     lint-stdin: true
-    # lint-formats:
-    #   - "%f:%l:%c: %m"
     lint-formats:
       - "%f(%l,%c): %tarning %m"
       - "%f(%l,%c): %rror %m"

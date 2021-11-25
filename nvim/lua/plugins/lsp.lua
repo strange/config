@@ -13,10 +13,6 @@ configs.zk = {
   };
 }
 
--- lspconfig.zk.setup({ on_attach = function(client, buffer) 
---   -- Add keybindings here, see https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
--- end })
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -50,37 +46,38 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-lspconfig.efm.setup {
-  init_options = {
-    documentFormatting = true,
-  },
+-- lspconfig.zk.setup({ on_attach = function(client, buffer) 
+--   -- Add keybindings here, see https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
+-- end })
+
+lspconfig.jsonls.setup {
   on_attach = on_attach,
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'typescriptreact',
-    'typescript',
-    'yaml',
-    'python',
-  },
+  cmd = { '/usr/bin/vscode-json-languageserver', '--stdio' },
 }
 
-local servers = {
-  'pyright',
-  'rust_analyzer',
-  'tsserver',
-  'zk',
+lspconfig.eslint.setup {
+  on_attach = on_attach,
 }
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-      virtual_text = false,
-    }
-  }
-end
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+}
+
+lspconfig.pylsp.setup {
+  on_attach = on_attach,
+}
+
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+}
+
+lspconfig.yamlls.setup {
+  on_attach = on_attach,
+}
+
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {

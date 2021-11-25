@@ -4,6 +4,6 @@ require 'colorizer'.setup({
   '!vimwiki';
   '!text';
 }, {
-  mode = 'virtualtext',
+  -- mode = 'virtualtext',
   names = false,
 })

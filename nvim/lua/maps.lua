@@ -10,3 +10,9 @@ vim.cmd([[map <F2> :TSHighlightCapturesUnderCursor<cr>]])
 
 -- Wiki
 vim.cmd([[map <leader>vv :e ~/notes/toc.md<cr>]])
+
+-- Trouble
+vim.cmd([[map <F1> :TroubleToggle<cr>]])
+
+-- Colorizer
+vim.cmd([[map <F3> :ColorizerToggle<cr>]])

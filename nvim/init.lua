@@ -38,14 +38,15 @@ require('packer').startup(function()
   }
   use {
     "AckslD/nvim-neoclip.lua",
+    event = "InsertEnter",
     requires = { 'tami5/sqlite.lua', module = 'sqlite' },
     config = "require('plugins.neoclip')",
   }
 
   -- Language support
-  use 'MaxMEllon/vim-jsx-pretty'
-  use 'yuezk/vim-js'
-  use 'Vimjas/vim-python-pep8-indent'
+  -- use 'MaxMEllon/vim-jsx-pretty'
+  -- use 'yuezk/vim-js'
+  -- use 'Vimjas/vim-python-pep8-indent'
   use { 'plasticboy/vim-markdown', config = function()
     vim.g.vim_markdown_folding_disabled = 1
   end}
@@ -60,6 +61,7 @@ require('packer').startup(function()
   use { 'neovim/nvim-lspconfig', config = "require('plugins.lsp')" }
   use {
     'hrsh7th/nvim-cmp',
+    event = "InsertEnter",
     config = "require('plugins.cmp')",
     requires = {
       { 'hrsh7th/cmp-vsnip', after = 'nvim-cmp' },
@@ -69,31 +71,45 @@ require('packer').startup(function()
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
     },
   }
-  use { 'folke/trouble.nvim', config = function() 
-    require("trouble").setup {
-      icons=false,
-    }
-    vim.cmd([[nmap <leader>q :TroubleToggle<cr>]])
-  end}
+  use {
+    'folke/trouble.nvim',
+    cmd = {
+      "Trouble",
+      "TroubleToggle",
+    },
+    config = function() 
+      require("trouble").setup {
+        icons=false,
+      }
+    end,
+  }
 
   -- Visual
-  use { 'rktjmp/lush.nvim' }
+  -- use { 'rktjmp/lush.nvim' }
   use {
     'lukas-reineke/indent-blankline.nvim',
     config = "require('plugins.blankline')",
   }
   use {
-    'DarwinSenior/nvim-colorizer.lua',
+    'oncomouse/nvim-colorizer.lua',
     config = "require('plugins.colorizer')",
   }
 
   use {
     'jnurmine/Zenburn',
-    config = "require('plugins.zenburn')",
+    -- config = "require('plugins.zenburn')",
   }
 
   use {
     'sainnhe/everforest',
-    -- config = "require('plugins.everforest')",
+    config = "require('plugins.everforest')",
   }
+
+  use { 'sainnhe/sonokai' }
+  -- vim.g.sonokai_style = 'espresso'
+  -- vim.cmd [[color sonokai]]
+  -- vim.cmd [[hi Normal guibg=#111111]]
+
+  use { 'EdenEast/nightfox.nvim' }
+  -- vim.cmd [[color nightfox]]
 end)
