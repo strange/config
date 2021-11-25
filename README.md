@@ -6,6 +6,7 @@
 * vscode-langservers-extracted
 * typescript-language-server
 * yaml-language-server
+* python-lsp-server
 * yamllint
 * typescript
 * pyright
