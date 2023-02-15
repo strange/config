@@ -11,6 +11,13 @@
 * typescript
 * pyright
 
+### Formatting
+
+* black
+* deno
+* shfmt
+* fixjson
+
 ### WM
 
 * bspwm
@@ -23,4 +30,4 @@
 
 ### Tools
 
-- zathura
+* zathura

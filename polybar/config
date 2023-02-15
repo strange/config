@@ -1,7 +1,7 @@
 # https://github.com/polybar/polybar/wiki/Module:-memory
 [colors]
-background = #111111
-foreground = #ddddcd
+background = #121414
+foreground = #E2D9C6
 foreground-dimmed = #99998a
 alert = #d57d7b
 active = #f2f2e9
@@ -16,14 +16,23 @@ padding-right = 2
 padding-left = 1
 module-margin = 2
 height = 26
+enable-ipc = true
 font-0 = Iosevka Custom:weight=medium:pixelsize=11;3
 font-1 = Iosevka Custom:weight=medium:pixelsize=11;3
 font-2 = Iosevka Custom:weight=medium:pixelsize=11;3
+# font-0 = JetBrains Mono:weight=medium:pixelsize=11;3
+# font-1 = JetBrains Mono:weight=medium:pixelsize=11;3
+# font-2 = JetBrains Mono:weight=medium:pixelsize=11;3
 modules-left = bspwm
-modules-right = pulseaudio wireless-network cpu memory battery1 battery2 date
+modules-right = keyboard-layout pulseaudio wireless-network cpu memory battery1 battery2 date
 line-size = 1
 background = ${colors.background}
 foreground = ${colors.foreground}
+
+[module/keyboard-layout]
+type = custom/ipc
+hook-0 = ~/bin/get-keyboard-layout
+initial = 1
 
 [module/cpu]
 type = internal/cpu

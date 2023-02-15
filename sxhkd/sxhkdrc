@@ -117,6 +117,12 @@ Pause
 super + alt + {Left,Right}
 	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
 
+super + F10
+	scrot -s
+
+super + F11
+	/home/gs/bin/toggle-layout
+
 super + F12
 	/home/gs/bin/autorandr.sh
 

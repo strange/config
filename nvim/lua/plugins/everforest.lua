@@ -1,12 +1,38 @@
-vim.cmd([[color everforest]])
-vim.cmd([[hi Normal guibg=#111111]])
-vim.cmd([[hi EndOfBuffer guibg=#111111]])
-vim.cmd([[hi StatusLine guifg=#ccdc90]])
-vim.cmd([[hi link TSLiteral TSString]])
-vim.cmd([[hi TSField guifg=#c4b89b]])
+vim.cmd([[
+  hi Normal guibg=#1f2224 guifg=#d6cbb2
+  hi NormalNC guibg=#1f2224 guifg=#d6cbb2
+  hi EndOfBuffer guibg=#1f2224
 
--- vim.cmd([[hi TSString guifg=#c99b6f]])
--- vim.cmd([[hi TSLiteral guifg=#cfa984]])
+  " Inverted
+  " hi! link String Yellow
+  " hi! link TSString Yellow
+  " hi! link Type Aqua
+  " hi! link TSType Aqua
+  " hi! link TSParameter Blue
+  " hi! link TSConstBuiltin Purple
 
--- vim.cmd([[hi TSString guifg=#9eafa2]])
--- vim.cmd([[hi TSLiteral guifg=#abbaaf]])
+  " Brackets
+  " hi! link TSPunctBracket Grey
+
+  " NeoTree
+  hi link NeoTreeDirectoryName Green
+  hi link NeoTreeDirectoryIcon Grey
+  hi link NeoTreeRootName Grey
+  hi! link NeoTreeNormal Normal
+  hi! link NeoTreeNormalNC Normal
+  hi! link NeoTreeEndOfBuffer Normal
+
+  hi IndentBlanklineChar guifg=#363c40 gui=nocombine
+
+  " hi! @keyword.function guifg=#e0806c
+  " hi! @keyword guifg=#e0806c
+  " hi! @conditional guifg=#e0806c
+
+
+  " hi! Keyword guifg=#a3747a
+  " hi! @conditional guifg=#a3747a
+  " hi! Type guifg=#7bab93
+  " hi! @field guifg=#7baba2
+  " hi! @variable guifg=#7baba2
+  " hi! @include guifg=#ab7b95
+]])

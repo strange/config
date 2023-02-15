@@ -1,14 +1,16 @@
-local actions = require('telescope.actions')
-
-require('neoclip').setup({
-    history = 1000,
-    preview = true,
-    enable_persistant_history = true,
-    keys = {
-        i = {
-            paste_behind = '<c-b>',
-        },
-    },
+require("neoclip").setup({
+	history = 10,
+	preview = true,
+	content_spec_column = true,
+	default_register = "*",
+	enable_persistent_history = true,
+	keys = {
+		telescope = {
+			i = {
+				paste_behind = "<c-b>",
+			},
+		},
+	},
 })
 
 vim.cmd([[noremap <leader>p <cmd>lua require('telescope').extensions.neoclip.default()<cr>]])

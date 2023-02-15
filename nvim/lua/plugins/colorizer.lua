@@ -1,9 +1,9 @@
-require 'colorizer'.setup({
-  '*';
-  '!markdown';
-  '!vimwiki';
-  '!text';
+require("colorizer").setup({
+	"*",
+	"!markdown",
+	"!vimwiki",
+	"!text",
 }, {
-  -- mode = 'virtualtext',
-  names = false,
+	-- mode = 'virtualtext',
+	names = false,
 })
