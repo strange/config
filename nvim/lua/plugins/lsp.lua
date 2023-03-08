@@ -1,6 +1,5 @@
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig/configs")
-local capabilities = require('cmp_nvim_lsp').default_capabilities();
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
@@ -53,73 +52,127 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-lspconfig.jsonls.setup({
-	on_attach = on_attach,
-  flags = lsp_flags,
-	schemas = {
-		{
-			fileMatch = { "package.json" },
-			url = "https://json.schemastore.org/package.json",
-		},
-		{
-			fileMatch = { ".eslintrc.json", ".eslintrc" },
-			url = "http://json.schemastore.org/eslintrc",
-		},
-		{
-			fileMatch = { "tsconfig.json", "tsconfig.*.json" },
-			url = "http://json.schemastore.org/tsconfig",
-		},
-		{
-			fileMatch = { "jsconfig.json", "jsconfig.*.json" },
-			url = "https://json.schemastore.org/jsconfig.json",
-		},
-	},
-})
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-lspconfig.eslint.setup({
-	on_attach = on_attach,
-  flags = lsp_flags,
-})
+-- Mason
 
-lspconfig.pylsp.setup({
-	filetypes = { "python" },
-	on_attach = on_attach,
-  flags = lsp_flags,
-	settings = {
-		configurationSources = { "flake8" },
-		formatCommand = { "black" },
-	},
-})
+require('mason').setup()
+local mason_lspconfig = require 'mason-lspconfig'
 
-lspconfig.tsserver.setup({
-	on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities,
-  settings = {
-    completions = {
-      completeFunctionCalls = true,
+local servers = {
+  tsserver = {},
+  pyright = {},
+  rust_analyzer = {},
+  jsonls = {
+    json = {
+      schemas = {
+        {
+          fileMatch = { "package.json" },
+          url = "https://json.schemastore.org/package.json",
+        },
+        {
+          fileMatch = { ".eslintrc.json", ".eslintrc" },
+          url = "http://json.schemastore.org/eslintrc",
+        },
+        {
+          fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+          url = "http://json.schemastore.org/tsconfig",
+        },
+        {
+          fileMatch = { "jsconfig.json", "jsconfig.*.json" },
+          url = "https://json.schemastore.org/jsconfig.json",
+        },
+      },
+      validate = { enable = true },
+    },
+  },
+}
+
+mason_lspconfig.setup {
+  ensure_installed = vim.tbl_keys(servers),
+}
+
+mason_lspconfig.setup_handlers {
+  function(server_name)
+    require('lspconfig')[server_name].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers[server_name],
     }
-  }
-})
+  end,
+}
 
-lspconfig.yamlls.setup({
-	on_attach = on_attach,
-  flags = lsp_flags,
-	settings = {
-		yaml = {
-			schemas = {
-				["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.{yml,yaml}",
-			},
-			schemaDownload = { enable = true },
-			validate = true,
-		},
-	},
-})
+-- Comment out below --- 8< ---
 
-lspconfig.rust_analyzer.setup({
-	on_attach = on_attach,
-  flags = lsp_flags,
-})
+-- lspconfig.jsonls.setup({
+-- 	on_attach = on_attach,
+--   flags = lsp_flags,
+-- 	schemas = {
+-- 		{
+-- 			fileMatch = { "package.json" },
+-- 			url = "https://json.schemastore.org/package.json",
+-- 		},
+-- 		{
+-- 			fileMatch = { ".eslintrc.json", ".eslintrc" },
+-- 			url = "http://json.schemastore.org/eslintrc",
+-- 		},
+-- 		{
+-- 			fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+-- 			url = "http://json.schemastore.org/tsconfig",
+-- 		},
+-- 		{
+-- 			fileMatch = { "jsconfig.json", "jsconfig.*.json" },
+-- 			url = "https://json.schemastore.org/jsconfig.json",
+-- 		},
+-- 	},
+-- })
+--
+-- lspconfig.eslint.setup({
+-- 	on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
+--
+-- lspconfig.pylsp.setup({
+-- 	filetypes = { "python" },
+-- 	on_attach = on_attach,
+--   capabilities = capabilities,
+--   flags = lsp_flags,
+-- 	settings = {
+-- 		configurationSources = { "flake8" },
+-- 		formatCommand = { "black" },
+-- 	},
+-- })
+--
+-- lspconfig.tsserver.setup({
+-- 	on_attach = on_attach,
+--   flags = lsp_flags,
+--   capabilities = capabilities,
+--   settings = {
+--     completions = {
+--       completeFunctionCalls = true,
+--     }
+--   }
+-- })
+--
+-- lspconfig.yamlls.setup({
+-- 	on_attach = on_attach,
+--   flags = lsp_flags,
+-- 	settings = {
+-- 		yaml = {
+-- 			schemas = {
+-- 				["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.{yml,yaml}",
+-- 			},
+-- 			schemaDownload = { enable = true },
+-- 			validate = true,
+-- 		},
+-- 	},
+-- })
+--
+-- lspconfig.rust_analyzer.setup({
+-- 	on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
 
 vim.diagnostic.config({
   flags = lsp_flags,

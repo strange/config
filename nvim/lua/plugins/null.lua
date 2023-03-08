@@ -15,7 +15,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.stylua,
 		-- require("null-ls").builtins.diagnostics.eslint,
 		require("null-ls").builtins.diagnostics.flake8,
-		require("null-ls").builtins.completion.spell,
+		-- require("null-ls").builtins.completion.spell,
 		-- require("null-ls").builtins.formatting.deno_fmt.with({
 		-- 	extra_args = { "--options-single-quote", "--options-line-width=100" },
 		-- }),
