@@ -1,35 +1,49 @@
-local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = "BufReadPre",
+    build = ":TSUpdate",
+    config = function()
+      local configs = require("nvim-treesitter.configs")
 
-require("nvim-treesitter.configs").setup({
-  highlight = {
-    enable = true,
-    -- custom_captures = {
-    -- 	["function.name"] = "FunctionName",
-    -- },
-    -- Need to enable in order for jsx indentation to work properly.
-    -- additional_vim_regex_highlighting = true,
+      configs.setup({
+        highlight = {
+          enable = true,
+          -- additional_vim_regex_highlighting = true,
+        },
+        indent = {
+          enable = true,
+        },
+        context_commentstring = {
+          enable = true,
+        },
+        ensure_installed = {
+          "bash",
+          "comment",
+          "dockerfile",
+          "erlang",
+          "html",
+          "javascript",
+          "json",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "regex",
+          "rego",
+          "rust",
+          "scss",
+          "toml",
+          "typescript",
+          "vim",
+          "yaml",
+        },
+      })
+    end,
   },
-  indent = {
-    enable = true,
-    disable = { "python" },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    event = "BufReadPre",
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
-  context_commentstring = {
-    enable = true,
-  },
-  autotag = {
-    enable = true,
-  },
-  --   incremental_selection = {
-  --     enable = true,
-  --     keymaps = {
-  --       init_selection = "gnn",
-  --       -- node_incremental = "grn",
-  --       -- scope_incremental = "grc",
-  --       -- node_decremental = "grm",
-
-  --       scope_incremental = '<CR>',
-  --       node_incremental = '<Tab>',
-  --       node_decremental = '<S-Tab>',
-  --     },
-  --   },
-})
+}

@@ -1,9 +1,9 @@
-require("colorizer").setup({
-	"*",
-	"!markdown",
-	"!vimwiki",
-	"!text",
-}, {
-	-- mode = 'virtualtext',
-	names = false,
-})
+return {
+  {
+    "norcalli/nvim-colorizer.lua",
+    event = "VeryLazy",
+    config = function()
+      require("colorizer").setup()
+    end,
+  }
+}
