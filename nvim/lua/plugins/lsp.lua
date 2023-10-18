@@ -1,15 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
-    opts = {
-      -- ensure_installed = {
-      --   "stylua",
-      --   "shellcheck",
-      --   "shfmt",
-      --   "flake8",
-      --   "lua_ls",
-      -- },
-    },
+    opts = {},
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -48,11 +40,14 @@ return {
 
       lspconfig.pyright.setup({
         settings = {
+          openFileSOnly = true,
           python = {
             analysis = {
+              stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
+              diagnosticMode = "workspace",
               autoSearchPaths = true,
-              useLibraryCodeForTypes = false,
-              diagnosticMode = "openFilesOnly",
+              useLibraryCodeForTypes = true,
+              -- diagnosticMode = "openFilesOnly",
             },
           },
         },
@@ -88,38 +83,6 @@ return {
         },
       })
     end,
-    -- opts = {
-    --   servers = {
-    --    jsonls = {},
-    --    pyright = {},
-    --   },
-    -- },
   },
-  -- {
-  --   "nvim-lua/lsp-status.nvim",
-  --   event = "BufReadPre",
-  -- },
-  -- {
-  --   "williamboman/mason.nvim",
-  --   event = "BufReadPre",
-  --   dependencies = {
-  --     "williamboman/mason-lspconfig.nvim",
-  --     "neovim/nvim-lspconfig",
-  --   },
-  --   build = ":MasonUpdate",
-  --   config = function()
-  --     -- require("lsp").setup()
-  --   end,
-  -- },
-
-  -- {
-  --   "mihyaeru21/nvim-lspconfig-bundler",
-  --   event = "BufReadPre",
-  --   dependencies = {
-  --     "neovim/nvim-lspconfig",
-  --   },
-  --   config = function()
-  --     -- require("lspconfig-bundler").setup()
-  --   end,
-  -- },
+  { "microsoft/python-type-stubs" },
 }

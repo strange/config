@@ -14,23 +14,19 @@ keymap("n", "<Down>", ":resize +1<CR>", default_opts)
 -- Inspect syntax group under cursor
 keymap("n", "<F2>", ":Inspect<CR>", default_opts)
 
+-- Go to alternate file
+keymap("n", "<BS>", ":e #<cr>", default_opts)
+
 -- OLD:
 
 -- Trouble
-vim.cmd([[map <F1> :TroubleToggle<cr>]])
+-- vim.cmd([[map <F1> :TroubleToggle<cr>]])
 
 -- Colorizer
-vim.cmd([[map <F3> :ColorizerToggle<cr>]])
+-- vim.cmd([[map <F3> :ColorizerToggle<cr>]])
 
 -- Markdown preview
-vim.cmd([[nmap <F5> <Plug>MarkdownPreviewToggle<cr>]])
-
--- Go to alternate file
-vim.cmd([[map <BS> :e #<cr>]])
-
--- Terminal stuff
-vim.cmd([[nmap <F4> <cmd>lua require('FTerm').toggle()<cr>]])
-vim.cmd([[tmap <F4> <C-n><CMD>lua require('FTerm').toggle()<CR>]])
+-- vim.cmd([[nmap <F5> <Plug>MarkdownPreviewToggle<cr>]])
 
 -- MKDX
 -- vim.cmd([[nmap <C-Space> :call mkdx#ToggleCheckboxState(1)<cr>]])

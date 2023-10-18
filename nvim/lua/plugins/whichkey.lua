@@ -11,15 +11,6 @@ return {
 
       wk.setup({})
 
-      local opts = {
-        mode = "n",
-        prefix = "<leader>",
-        buffer = nil,
-        silent = true,
-        noremap = true,
-        nowait = true,
-      }
-
       wk.register({
         l = { "<cmd>Lazy<CR>", "Plugin Manager" },
         e = { "<cmd>Telescope find_files<cr>", "Files" },
@@ -43,7 +34,14 @@ return {
           r = { "<cmd>Telescope resume<cr>", "Resume" },
           s = { "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", "Current Buffer" },
         },
-      }, opts)
-    end
-  }
+      }, { mode = "n", prefix = "<leader>" })
+
+      wk.register({
+        ["<F4>"] = { "<cmd>ToggleTerm direction=float<cr>", "Terminal" },
+      }, { mode = "n" })
+      wk.register({
+        ["<F4>"] = { "<c-n><cmd>ToggleTerm direction=float<cr>", "Terminal" },
+      }, { mode = "t" })
+    end,
+  },
 }

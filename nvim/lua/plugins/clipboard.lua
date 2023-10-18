@@ -18,5 +18,3 @@ return {
     },
   },
 }
-
--- vim.cmd([[noremap <leader>p <cmd>lua require('telescope').extensions.neoclip.default()<cr>]])
