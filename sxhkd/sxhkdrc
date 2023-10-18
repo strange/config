@@ -107,14 +107,10 @@ XF86AudioMute
 	ponymix toggle
 	# amixer set Master toggle
 
-super + Pause
-	ponymix toggle
-	# amixer set Master toggle
-
-Pause
+XF86AudioPlay
 	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
-super + alt + {Left,Right}
+XF86Audio{Prev,Next}
 	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Next}
 
 super + F10
