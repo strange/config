@@ -1,4 +1,3 @@
-" syn region mkdWikiLink matchgroup=mkdWikiLinkBrackets start="\[\[" end="]]" concealends
 syn region mkdWikiLink start="\[\[" end="]]" keepend contains=mkdWikiLinkStart,mkdWikiLinkEnd
 syn match mkdWikiLinkStart /\[\[/ contained conceal
 syn match mkdWikiLinkEnd /]]/ contained conceal
