@@ -29,21 +29,21 @@ vim.o.signcolumn = "number"
 -- vim.o.statusline = " %f%m%r %= Ln %l, Col %v (%p%%) "
 
 function lsp_diagnostics()
-	local targets = { "Error", "Warning", "Information", "Hint" }
-	local output = {}
+  local targets = { "Error", "Warning", "Information", "Hint" }
+  local output = {}
 
-	for _, target in pairs(targets) do
-		local count = vim.lsp.diagnostic.get_count(0, [[Warning]])
-		if count > 0 then
-			table.insert(output, string.format("%s:%s", string.sub(target, 1, 1), count))
-		end
-	end
+  for _, target in pairs(targets) do
+    local count = vim.lsp.diagnostic.get_count(0, [[Warning]])
+    if count > 0 then
+      table.insert(output, string.format("%s:%s", string.sub(target, 1, 1), count))
+    end
+  end
 
-	if #output > 0 then
-		return "[" .. table.concat(output, ",") .. "]"
-	end
+  if #output > 0 then
+    return "[" .. table.concat(output, ",") .. "]"
+  end
 
-	return ""
+  return ""
 end
 
 vim.o.statusline = " %f%m%r %= Ln %l, Col %v (%p%%) "
