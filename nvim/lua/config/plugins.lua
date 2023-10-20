@@ -13,7 +13,21 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    { import = "plugins" }
+    { import = "plugins" },
   },
   install = { colorscheme = { "gruvbox-material" } },
+  change_detection = {
+    notify = false,
+  },
+  performance = {
+    disabled_plugins = {
+      "gzip",
+      "matchparen",
+      "netrwPlugin",
+      "tarPlugin",
+      "tohtml",
+      "tutor",
+      "zipPlugin",
+    },
+  },
 })

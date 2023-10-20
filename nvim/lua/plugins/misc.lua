@@ -1,56 +1,71 @@
 return {
-  {
-    "farmergreg/vim-lastplace",
-    event = { "BufReadPre" },
-  },
-  {
-    "tpope/vim-ragtag",
-    event = { "InsertEnter" },
-  },
-  {
-    "tpope/vim-fugitive",
-    event = { "BufReadPost" },
-  },
-  {
-    "tpope/vim-surround",
-    event = { "InsertEnter" },
-  },
-  {
-    "echasnovski/mini.nvim",
-    event = { "BufReadPost" },
-    config = function()
-      require("mini.splitjoin").setup()
-    end,
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    enabled = true,
-    main = "ibl",
-    event = "BufReadPost",
-    opts = {
-      scope = {
+	-- Restore cursor position
+	{ "farmergreg/vim-lastplace", event = { "BufReadPre" } },
+
+	-- Symbol navigation
+	{
+		"stevearc/aerial.nvim",
+		opts = {},
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
         enabled = false,
-      },
-      -- exclude = {
-      --   filetypes = {
-      --     "help",
-      --     "terminal",
-      --     "starter",
-      --     "nvim-tree",
-      --     "packer",
-      --     "lspinfo",
-      --     "TelescopePrompt",
-      --     "TelescopeResults",
-      --     "mason",
-      --     "",
-      --   },
-      -- },
-      -- exclude = { "help", "text", "terminal", "nofile" },
-      -- filetype_exclude = { "help", "text" },
-      -- use_treesitter = true,
-      -- show_first_indent_level = false,
-      -- show_current_context = true,
-      -- show_current_context_start = true,
-    },
-  },
+		config = function()
+			require("aerial").setup({
+				on_attach = function(bufnr)
+					vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+					vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+				end,
+				layout = {
+					min_width = 30,
+					default_direction = "prefer_left",
+				},
+			})
+		end,
+	},
+
+	-- Git stuff
+	{
+		"tpope/vim-fugitive",
+		event = { "BufReadPost" },
+	},
+
+	-- Split/join blocks of code
+	{
+		"Wansmer/treesj",
+        enabled = false,
+		keys = { "<space>m", "<space>j", "<space>s" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesj").setup({})
+		end,
+	},
+
+	-- Modify surrounding characters
+	{
+		"tpope/vim-surround",
+		event = { "InsertEnter" },
+	},
+
+	-- Split/join blocks of code
+	{
+		"echasnovski/mini.nvim",
+		enabled = false,
+		config = function()
+			require("mini.splitjoin").setup()
+		end,
+	},
+
+	-- Indent guides
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		enabled = true,
+		main = "ibl",
+		event = "BufReadPost",
+		opts = {
+			scope = {
+				enabled = false,
+			},
+		},
+	},
 }

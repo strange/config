@@ -1,122 +1,150 @@
+-- Notable keybindings:
+--
+-- gl - show diagnostics
+-- F2 - rename
+-- K - display info about symbol
+-- go - go to definition
+-- gr - display all references to the symbol
+-- ]d and [d - go to next/prev diagnostic
+
 return {
-  {
-    "williamboman/mason.nvim",
-    opts = {},
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        "lua_ls",
-      },
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
-    config = function()
-      local lspconfig = require("lspconfig")
+	{
+		"VonHeikemen/lsp-zero.nvim",
+		dependencies = {
+			"creativenull/efmls-configs-nvim",
+			"neovim/nvim-lspconfig",
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"microsoft/python-type-stubs",
+		},
+		branch = "v3.x",
+		config = function()
+			local lsp_zero = require("lsp-zero")
+			local lspconfig = require("lspconfig")
 
-      vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-      vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+			require("mason").setup({})
+			require("mason-lspconfig").setup({})
 
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-        callback = function(ev)
-          -- Enable completion triggered by <c-x><c-o>
-          vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+			-- Keymaps
 
-          -- Buffer local mappings.
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
-          local opts = { buffer = ev.buf }
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-          vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set("n", "<space>wl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
-          vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-          vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-          vim.keymap.set("n", "<space>f", function()
-            vim.lsp.buf.format({ async = true })
-          end, opts)
-        end,
-      })
+			lsp_zero.on_attach(function(client, bufnr)
+				lsp_zero.default_keymaps({
+					buffer = bufnr,
+					preserve_mappings = false,
+					exclude = { "<F3>", "<F4>" },
+				})
+			end)
 
-      lspconfig.pyright.setup({
-        settings = {
-          openFileSOnly = true,
-          python = {
-            analysis = {
-              stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
-              diagnosticMode = "workspace",
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-              -- diagnosticMode = "openFilesOnly",
-            },
-          },
-        },
-      })
+			-- Diagnostic settings
 
-      lspconfig.lua_ls.setup({})
-      lspconfig.tsserver.setup({})
-      lspconfig.eslint.setup({})
-      lspconfig.rust_analyzer.setup({})
-      lspconfig.jsonls.setup({
-        json = {
-          json = {
-            schemas = {
-              {
-                fileMatch = { "package.json" },
-                url = "https://json.schemastore.org/package.json",
-              },
-              {
-                fileMatch = { ".eslintrc.json", ".eslintrc" },
-                url = "http://json.schemastore.org/eslintrc",
-              },
-              {
-                fileMatch = { "tsconfig.json", "tsconfig.*.json" },
-                url = "http://json.schemastore.org/tsconfig",
-              },
-              {
-                fileMatch = { "jsconfig.json", "jsconfig.*.json" },
-                url = "https://json.schemastore.org/jsconfig.json",
-              },
-            },
-            validate = { enable = true },
-          },
-        },
-      })
+			vim.diagnostic.config({
+				virtual_text = false,
+				severity_sort = true,
+			})
 
-      vim.diagnostic.config({
-        flags = {
-          debounce_text_changes = 150,
-        },
-        virtual_text = false,
-        signs = true,
-        underline = true,
-        update_in_insert = false,
-        severity_sort = true,
-      })
+			-- LSP servers
 
-      local signs = { Error = "×", Warn = "×", Hint = "×", Info = "×" }
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
-    end,
-  },
-  { "microsoft/python-type-stubs" },
+			lspconfig.pyright.setup({
+				settings = {
+					python = {
+						analysis = {
+							stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
+						},
+					},
+				},
+			})
+
+			lspconfig.lua_ls.setup({
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
+			})
+			lspconfig.tsserver.setup({})
+			lspconfig.rust_analyzer.setup({})
+			lspconfig.jsonls.setup({
+				json = {
+					json = {
+						schemas = {
+							{
+								fileMatch = { "package.json" },
+								url = "https://json.schemastore.org/package.json",
+							},
+							{
+								fileMatch = { ".eslintrc.json", ".eslintrc" },
+								url = "http://json.schemastore.org/eslintrc",
+							},
+							{
+								fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+								url = "http://json.schemastore.org/tsconfig",
+							},
+							{
+								fileMatch = { "jsconfig.json", "jsconfig.*.json" },
+								url = "https://json.schemastore.org/jsconfig.json",
+							},
+						},
+						validate = { enable = true },
+					},
+				},
+			})
+
+			-- EFM setup
+
+			local eslint = require("efmls-configs.linters.eslint_d")
+			local prettier = require("efmls-configs.formatters.prettier")
+			local stylua = require("efmls-configs.formatters.stylua")
+			local black = require("efmls-configs.formatters.black")
+			local isort = require("efmls-configs.formatters.isort")
+			local rustfmt = require("efmls-configs.formatters.rustfmt")
+
+			local languages = {
+				javascript = { eslint, prettier },
+				javascriptreact = { eslint, prettier },
+				lua = { stylua },
+				python = { black, isort },
+				rust = { rustfmt },
+				typescript = { eslint, prettier },
+				typescriptreact = { eslint, prettier },
+			}
+
+			require("lspconfig").efm.setup(vim.tbl_extend("force", {
+				filetypes = vim.tbl_keys(languages),
+				settings = {
+					rootMarkers = { ".git/" },
+					languages = languages,
+				},
+				init_options = {
+					documentFormatting = true,
+					documentRangeFormatting = true,
+				},
+			}, {
+				-- on_attach = on_attach,
+				-- capabilities = capabilities,
+			}))
+
+			-- Format on save
+
+			vim.api.nvim_create_autocmd("BufWritePost", {
+				group = vim.api.nvim_create_augroup("LspFormattingGroup", {}),
+				callback = function(ev)
+					local efm = vim.lsp.get_active_clients({ name = "efm", bufnr = ev.buf })
+
+					if vim.tbl_isempty(efm) then
+						return
+					end
+
+					vim.lsp.buf.format({ name = "efm", timeout_ms = 20000 })
+				end,
+			})
+		end,
+	},
+	{
+		"folke/trouble.nvim",
+		opts = {
+			icons = false,
+		},
+	},
 }
