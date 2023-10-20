@@ -9,7 +9,7 @@ return {
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 		},
-        enabled = false,
+		enabled = false,
 		config = function()
 			require("aerial").setup({
 				on_attach = function(bufnr)
@@ -33,7 +33,7 @@ return {
 	-- Split/join blocks of code
 	{
 		"Wansmer/treesj",
-        enabled = false,
+		enabled = true,
 		keys = { "<space>m", "<space>j", "<space>s" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
@@ -50,7 +50,7 @@ return {
 	-- Split/join blocks of code
 	{
 		"echasnovski/mini.nvim",
-		enabled = false,
+		enabled = true,
 		config = function()
 			require("mini.splitjoin").setup()
 		end,
