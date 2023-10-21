@@ -3,20 +3,8 @@
 ### Vim
 
 * neovim
-* vscode-langservers-extracted
-* typescript-language-server
-* yaml-language-server
-* python-lsp-server
-* yamllint
-* typescript
-* pyright
-
-### Formatting
-
-* black
-* deno
-* shfmt
-* fixjson
+* black, installed per project
+* prettify, installed per project
 
 ### WM
 
