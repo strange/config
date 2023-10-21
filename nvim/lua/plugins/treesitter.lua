@@ -9,7 +9,6 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			local configs = require("nvim-treesitter.configs")
-
 			configs.setup({
 				highlight = {
 					enable = true,
@@ -44,10 +43,5 @@ return {
 				},
 			})
 		end,
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		event = "BufReadPre",
-		dependencies = "nvim-treesitter/nvim-treesitter",
 	},
 }

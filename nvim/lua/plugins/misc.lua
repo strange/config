@@ -5,11 +5,19 @@ return {
 	-- Symbol navigation
 	{
 		"stevearc/aerial.nvim",
-		opts = {},
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 		},
-		enabled = false,
+		enabled = true,
+		keys = {
+			{
+				"<leader>fa",
+				"<cmd>AerialToggle!<cr>",
+				desc = "Aerial",
+				silent = true,
+				remap = false,
+			},
+		},
 		config = function()
 			require("aerial").setup({
 				on_attach = function(bufnr)

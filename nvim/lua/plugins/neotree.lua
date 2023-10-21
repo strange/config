@@ -20,16 +20,8 @@ return {
 					},
 					icon = {
 						folder_closed = "+",
-						-- folder_closed = "🡺",
-						-- folder_closed = "›",
-						-- folder_closed = "▸",
-						-- folder_closed = "▶",
 						folder_open = "-",
-						-- folder_open = "🡻",
-						-- folder_open = "▼",
-						-- folder_empty = "Ø",
 						folder_empty = "×",
-						-- folder_empty = "▷",
 						default = " ",
 					},
 					name = {
@@ -40,35 +32,9 @@ return {
 				filesystem = {
 					filtered_items = {
 						hide_dotfiles = false,
-						hide_gitignore = true,
 					},
 					use_libuv_file_watcher = true,
 					hijack_netrw_behavior = "open_current",
-					window = {
-						mappings = {
-							["<2-LeftMouse>"] = "open",
-							["<cr>"] = "open",
-							["S"] = "open_split",
-							["s"] = "open_vsplit",
-							["C"] = "close_node",
-							["-"] = "navigate_up",
-							["."] = "set_root",
-							["H"] = "toggle_hidden",
-							["I"] = "toggle_gitignore",
-							["R"] = "refresh",
-							["/"] = "fuzzy_finder",
-							["f"] = "filter_on_submit",
-							["<c-x>"] = "clear_filter",
-							["a"] = "add",
-							["d"] = "delete",
-							["r"] = "rename",
-							["c"] = "copy_to_clipboard",
-							["x"] = "cut_to_clipboard",
-							["p"] = "paste_from_clipboard",
-							["m"] = "move",
-							["q"] = "close_window",
-						},
-					},
 				},
 			})
 

@@ -20,7 +20,6 @@ return {
 				t = { "<cmd>Neotree reveal toggle<cr>", "Neotree" },
 				f = {
 					name = "Find ...",
-					a = { "<cmd>AerialToggle!<cr>", "Aerial" },
 					b = { "<cmd>Telescope buffers<cr>", "Buffers" },
 					c = { "<cmd>Telescope commands<cr>", "Commands" },
 					f = { "<cmd>Telescope find_files<cr>", "Files" },
